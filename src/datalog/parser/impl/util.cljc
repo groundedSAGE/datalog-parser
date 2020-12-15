@@ -1,4 +1,5 @@
 (ns ^:no-doc datalog.parser.impl.util
+  #?(:cljs (:require-macros [datalog.parser.impl.util :refer [raise]]))
   (:require [datalog.parser.impl.proto :as proto]
             [datalog.parser.util       :as util]
             [clojure.string            :as str])

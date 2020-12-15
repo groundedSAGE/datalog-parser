@@ -12,3 +12,8 @@ pom.xml.asc
 .hg/
 *.iml
 /.idea
+/.shadow-cljs
+/.cpcache
+/.calva
+/public
+/resources

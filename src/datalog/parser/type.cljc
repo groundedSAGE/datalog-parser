@@ -139,7 +139,7 @@
 (def return-maps? (partial instance? ReturnMaps))
 
 ;; q* prefix because of https"//dev.clojure.org/jira/browse/CLJS-2237"
-(deftrecord Query [qfind qwith qin qwhere])
+(deftrecord Query [qfind qwith qin qwhere qlimit qoffset qreturnmaps])
 
 (defn collect-vars
   ([form] (collect-vars [] form))

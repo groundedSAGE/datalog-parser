@@ -1,12 +1,12 @@
 (ns datalog.parser.pull
   (:require [datalog.parser.impl.util :as util
              #?(:cljs :refer-macros :clj :refer) [raise forv]])
-  (:refer-clojure :rename {pos? core-pos?}))
+  (:refer-clojure :exclude [pos?]))
 
 #?(:clj (set! *warn-on-reflection* true))
 
 (defn- pos? [n]
-  (and (number? n) (core-pos? n)))
+  (and (number? n) (clojure.core/pos? n)))
 
 (defrecord PullSpec            [wildcard? attrs])
 (defrecord PullAttrName        [attr])

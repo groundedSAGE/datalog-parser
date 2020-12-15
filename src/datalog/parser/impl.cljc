@@ -8,7 +8,7 @@
             #?(:cljs [datalog.parser.type :refer
                       [Not And Or Aggregate SrcVar RulesVar RuleExpr
                        RuleVars Variable ReturnMaps MappingKey]]))
-  (:refer-clojure :rename  {distinct? core-distinct?})
+  (:refer-clojure :exclude [distinct?])
   #?(:clj
      (:import [datalog.parser.type
                Not And Or Aggregate SrcVar RulesVar RuleExpr RuleVars Variable ReturnMaps MappingKey])))
@@ -34,7 +34,7 @@
   ([t form acc] (util/collect #(instance? t %) form acc)))
 
 (defn- distinct? [coll]
-  (or (empty? coll) (apply core-distinct? coll)))
+  (or (empty? coll) (apply clojure.core/distinct? coll)))
 
 (defn with-source [obj source]
   (vary-meta obj assoc :source source))
@@ -430,18 +430,20 @@
   "Parse pagination limit"
   [limit]
   (when limit
-    (if (= (type (first limit)) java.lang.Long)
+    (if (pos-int? (first limit))
       (first limit)
-      (raise "Cannot parse :limit, expected java.lang.Long"
+      (raise "Cannot parse :limit, expected positive integer"
              {:error :parser/limit, :limit limit}))))
 
+
+ 
 (defn parse-offset
   "Parse pagination offset"
   [offset]
   (when offset
-    (if (= (type (first offset)) java.lang.Long)
+    (if (pos-int? (first offset))
       (first offset)
-      (raise "Cannot parse :offset, expected java.lang.Long"
+      (raise "Cannot parse :offset, expected positive integer"
              {:error :parser/offset, :offset offset}))))
 
 (defn parse-return-maps

@@ -23,3 +23,14 @@
 (extend-type nil
   Traversable
   (-traversable? [_] false))
+
+#?(:cljs
+   (extend-protocol Traversable
+     number
+     (-traversable? [_] false)
+
+     string
+     (-traversable? [_] false)
+
+     object
+     (-traversable? [_] false)))
